@@ -41,6 +41,7 @@ public class VipPymeService {
   @Autowired
   private PersonalService personalService;
 
+
   /**
    * .
    * BancoService bancoService
@@ -48,10 +49,9 @@ public class VipPymeService {
   @Autowired
   private BancoService bancoService;
 
+
   public Mono<Personal> saveAndVerify(Personal personal) {
-
-
-
+    bancoService.someRestCall("save");
     return personalService.save(personal);
   }
 

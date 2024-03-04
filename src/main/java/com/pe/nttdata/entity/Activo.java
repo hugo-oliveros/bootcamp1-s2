@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pe.nttdata.domain.BaseDomain;
-
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,6 @@ import lombok.ToString;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 
 /**
  *Implement Activo. <br/>
@@ -43,34 +41,33 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Activo  extends BaseDomain implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
+  /**
+   *.
+   */
+  @Id
+  @JsonSerialize(using = NoObjectIdSerializer.class)
+  private ObjectId id;
 
-    /**
-     * ..
-     **/
-    @Id
-    @JsonSerialize(using = NoObjectIdSerializer.class)
-    private ObjectId id;
+  /**
+   *.
+   */
+  private String descrip;
 
-    /**
-     * ..
-     **/
-    private String descrip;
+  /**
+   *.
+   */
+  private Persona persona;
 
-    /**
-     * ..
-     **/
-    private Persona persona;
+  /**
+   *.
+   */
+  private Empresa empresa;
 
-    /**
-     * ..
-     **/
-    private Empresa empresa;
-
-    /**
-     * ..
-     **/
-    private TarjetaCredito tarjeta;
+  /**
+   *.
+   */
+  private TarjetaCredito tarjeta;
 
 }

@@ -1,8 +1,10 @@
 package com.pe.nttdata.services;
 
+import com.pe.nttdata.entity.Activo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 
 /**
@@ -36,8 +38,9 @@ public class BancoService {
     this.webClient = webClientBuilder.baseUrl("http://localhost:8085").build();
   }
 
-   /*public Mono<Details> someRestCall(String name) {
-        return this.webClient.get().url("/{name}/details", name)
-                .retrieve().bodyToMono(Details.class);
-    }*/
+  public Mono<Activo> someRestCall(String name) {
+        return this.webClient.get().uri("/{name}/details", name)
+                .retrieve().bodyToMono(Activo.class);
+  }
+
 }

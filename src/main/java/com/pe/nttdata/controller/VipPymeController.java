@@ -36,7 +36,7 @@ import reactor.core.publisher.Mono;
  *@version 1.0
  */
 @RestController
-@RequestMapping("empresarial/api/v1")
+@RequestMapping("vipyme/api/v1")
 @CrossOrigin("*")
 @Slf4j
 public class VipPymeController {
@@ -63,7 +63,7 @@ public class VipPymeController {
           consumes = MediaType.APPLICATION_JSON_VALUE,
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public Mono<Personal> saveAndVerify(@RequestBody @NotNull final Personal personal) {
+  public Mono<Personal> save(@RequestBody @NotNull final Personal personal) {
     return vipPymeService.saveAndVerify(personal);
   }
 
