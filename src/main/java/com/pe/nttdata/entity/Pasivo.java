@@ -1,6 +1,5 @@
 package com.pe.nttdata.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -9,17 +8,15 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 /**
- *Implement Personal. <br/>
- *<b>Class</b>: {@link Personal}<br/>
+ *Implement Pasivo. <br/>
+ *<b>Class</b>: {@link Pasivo}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -34,7 +31,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *</ul>
  *@version 1.0
  */
-@Document(collection = "Personal")
+@Document(collection = "Pasivo")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,37 +39,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Personal extends BaseDomain implements Serializable {
+public class Pasivo extends BaseDomain implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /**
-   *.
-   **/
   @Id
   @JsonSerialize(using = NoObjectIdSerializer.class)
   private ObjectId id;
-
-  /**
-   *.
-   **/
   private String type;
-
-  /**
-   *.
-   **/
   private String catalog;
-
-  /**
-   *.
-   **/
+  private Integer maxMoviento;
   private String descrip;
-
-
-  /**
-   *.
-   **/
-  private Pasivo pasivo;
-
+  private Persona persona;
+  private TarjetaCredito tarjeta;
 
 }

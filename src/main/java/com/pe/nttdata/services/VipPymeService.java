@@ -1,10 +1,14 @@
 package com.pe.nttdata.services;
 
+import com.pe.nttdata.entity.Empresarial;
 import com.pe.nttdata.entity.Personal;
+import com.pe.nttdata.util.MapperUtils;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
 
 /**
  *Implement VipPymeService. <br/>
@@ -50,9 +54,28 @@ public class VipPymeService {
   private BancoService bancoService;
 
 
+
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @param personal {@link Empresarial}
+   * @return {@link Mono}&lt;{@link Personal}&gt;
+   * @see String
+   * @see Mono
+   */
   public Mono<Personal> saveAndVerify(Personal personal) {
-    bancoService.someRestCall("save");
-    return personalService.save(personal);
+    AtomicInteger atomicInteger = new AtomicInteger(0);
+    return bancoService.aperturaCtaRestCall(personal.getPasivo())
+       .map(person -> MapperUtils.mapper(Personal.class, person))
+            .flatMap(req -> {
+              if (req.getCatalog().equals("402")) {
+                return personalService.save(personal);
+              }
+              return Mono.just(req);
+            });
   }
 
 
