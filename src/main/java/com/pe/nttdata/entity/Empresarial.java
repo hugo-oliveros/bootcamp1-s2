@@ -46,35 +46,40 @@ public class Empresarial extends BaseDomain implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * ..
+   *.
    **/
   @Id
   @JsonSerialize(using = NoObjectIdSerializer.class)
   private ObjectId id;
 
   /**
-   * ..
+   *.
    **/
   private String type;
 
   /**
-   * ..
+   *.
    **/
   private String razonSocial;
 
   /**
-   * ..
+   *.
    **/
   private String ruc;
 
   /**
-   * ..
+   *.
    **/
   private String direccion;
 
   /**
-   * ..
+   *.
    **/
-  private String descripcion;
+  private String descrip;
 
+
+  /**
+   *.
+   **/
+  private Activo activo;
 }

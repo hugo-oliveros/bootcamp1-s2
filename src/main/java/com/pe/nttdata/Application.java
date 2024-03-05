@@ -6,10 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
-
+import org.springframework.data.mongodb.config.EnableReactiveMongoAuditing;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 /**
  *Implement Application. <br/>
@@ -29,7 +30,9 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
  *@version 1.0
  */
 @SpringBootApplication
-@EnableMongoAuditing
+@Configuration
+@EnableReactiveMongoRepositories
+@EnableReactiveMongoAuditing
 public class Application implements CommandLineRunner {
 
   public static void main(String[] args) {

@@ -57,6 +57,23 @@ public class BancoService {
             .bodyToMono(Activo.class);
   }
 
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @param ruc {@link String}
+   * @return {@link Mono}&lt;{@link Activo}&gt;
+   * @see Mono
+   * @see Activo
+   */
+  public Mono<Activo> checkExitEmpresarialCtaRest(@RequestBody @NotNull String ruc) {
+    return this.webClient.get().uri("/banco/api/v1/findByRUC/{ruc}",ruc)
+            .retrieve()
+            .bodyToMono(Activo.class);
+  }
+
   /**
    * <p/>
    * Flux all elements from Mongo passing for

@@ -60,6 +60,7 @@ public class Personal extends BaseDomain implements Serializable {
 
   private String dni;
 
+
   /**
    *.
    **/

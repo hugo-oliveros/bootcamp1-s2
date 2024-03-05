@@ -1,6 +1,5 @@
 package com.pe.nttdata.services;
 
-import com.pe.nttdata.entity.Empresarial;
 import com.pe.nttdata.entity.Personal;
 import com.pe.nttdata.repository.PersonalRepository;
 import java.util.Optional;
@@ -10,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-
-
 
 /**
  *Implement PersonalService. <br/>

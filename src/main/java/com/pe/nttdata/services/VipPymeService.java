@@ -56,6 +56,7 @@ public class VipPymeService {
   private BancoService bancoService;
 
   private Personal personaReturn  = Personal.builder().build();
+  private Empresarial empresaReturn  = Empresarial.builder().build();
 
 
   /**
@@ -115,10 +116,38 @@ public class VipPymeService {
    * @see Mono
    */
   public Mono<Empresarial> savePymeVerify(Empresarial empresarial) {
-    Empresarial returnEmpresa = Empresarial.builder().build();
-    returnEmpresa.setDescripcion("AAA");
-    return Mono.just(returnEmpresa);
-  }
+      return bancoService.checkExitEmpresarialCtaRest(empresarial.getRuc())
+              .map(activo -> MapperUtils.mapper(Activo.class, activo))
+              .flatMap(req -> {
+                  if (req.getTypeCliente().equals(ProductoEnum.PYME.getValue())
+                          && req.getStatus().equals("BUSSNESS-OFF")) {
 
+                      empresaReturn = Empresarial.builder().build();
+                      empresaReturn.setType(req.getType());
+
+                      return bancoService.updateStatusActivo(req.getId().toString())
+                              .flatMap(f -> {
+                                  req.setStatus(f.getStatus());
+                                  empresaReturn.setActivo(req);
+                                  return empresarialService.save(empresaReturn);
+                              });
+                  }
+
+                  empresaReturn = Empresarial.builder().build();
+                  empresaReturn.setDescrip("The client has a bank account type "
+                          + req.getTarjeta().getType());
+                  return Mono.just(empresaReturn);
+              }).onErrorResume(error -> {
+                  empresaReturn = Empresarial.builder().build();
+                  empresaReturn.setDescrip("The user does not have an account created."
+                          + error);
+                  return Mono.just(empresaReturn);
+              }).switchIfEmpty(Mono.defer(() -> {
+                  empresaReturn = Empresarial.builder().build();
+                  empresaReturn.setDescrip("The document entered does not contain an account");
+                  return Mono.just(empresaReturn);
+              }));
+
+  }
 
 }
