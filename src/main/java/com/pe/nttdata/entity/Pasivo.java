@@ -50,9 +50,12 @@ public class Pasivo extends BaseDomain implements Serializable {
   private ObjectId id;
   private String type;
   private String typeCliente;
+  /**
+   *.
+   **/
+  private String status;
   private String catalog;
   private Integer maxMoviento;
-  private BigDecimal montoTotal;
   private String descrip;
   private Persona persona;
   private TarjetaCredito tarjeta;

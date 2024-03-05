@@ -1,7 +1,6 @@
 package com.pe.nttdata.util;
 
 import com.google.gson.Gson;
-import com.pe.nttdata.controller.VipPymeController;
 
 /**
  *Implement MapperUtils. <br/>

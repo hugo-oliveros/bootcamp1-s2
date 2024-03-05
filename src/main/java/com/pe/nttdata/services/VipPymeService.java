@@ -1,13 +1,11 @@
 package com.pe.nttdata.services;
 
 import com.pe.nttdata.commons.ProductoEnum;
+import com.pe.nttdata.entity.Activo;
 import com.pe.nttdata.entity.Empresarial;
 import com.pe.nttdata.entity.Personal;
 import com.pe.nttdata.util.MapperUtils;
-
 import java.math.BigDecimal;
-import java.util.Observable;
-import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,7 +55,7 @@ public class VipPymeService {
   @Autowired
   private BancoService bancoService;
 
-
+  private Personal personaReturn  = Personal.builder().build();
 
 
   /**
@@ -70,31 +68,57 @@ public class VipPymeService {
    * @see String
    * @see Mono
    */
-  public Mono<Personal> saveVipAndVerify(Personal personal) {
-    AtomicInteger atomicInteger = new AtomicInteger(0);
+  public Mono<Personal> saveVipVerify(Personal personal) {
+    return bancoService.checkExitPersonalCtaRest(personal.getDni())
+              .map(activo -> MapperUtils.mapper(Activo.class, activo))
+               .flatMap(req -> {
+                 if ((req.getTarjeta().getMontoTotal().compareTo(new BigDecimal("500")) > 0)
+                         && req.getTypeCliente().equals(ProductoEnum.VIP.getValue())
+                         && req.getStatus().equals("PERSONAL-OFF")) {
+                   personaReturn = Personal.builder().build();
+                   personaReturn.setType(req.getType());
+                   personaReturn.setTypeCliente(req.getTypeCliente());
+                   personaReturn.setMaxMoviento(req.getMaxMoviento());
+                   return bancoService.updateStatusActivo(req.getId().toString())
+                           .flatMap(f -> {
+                             req.setStatus(f.getStatus());
+                             personaReturn.setActivo(req);
+                             return personalService.save(personaReturn);
+                           });
+                 }
 
-    return bancoService.aperturaCtaRestCall(personal.getPasivo())
-       .map(person -> MapperUtils.mapper(Personal.class, person))
-            .flatMap(req -> {
-              if (req.getCatalog().equals("402")//isExist
-                  && (req.getMontoTotal().compareTo(new BigDecimal("500"))>0)
-                  && req.getTypeCliente().equals(ProductoEnum.VIP.getValue())
-              ) {
+                 personaReturn = Personal.builder().build();
+                 personaReturn.setDescrip("The client has a bank account type "
+                         + req.getTarjeta().getType());
+                 return Mono.just(personaReturn);
+               }).onErrorResume(error -> {
+                 Personal p = Personal.builder().build();
+                 p.setDescrip("The user does not have an account created."
+                         + error);
+                 return Mono.just(p);
+               }).switchIfEmpty(Mono.defer(() -> {
+                 personaReturn = Personal.builder().build();
+                 personaReturn.setDescrip("The document entered does not contain an account");
+                 return Mono.just(personaReturn);
+               }));
 
-                return Mono.from(personalService.findAll()
-                        .map(m -> MapperUtils.mapper(Personal.class, m))
-                        .flatMap(r -> {
-                          return personalService.save(personal);
-                        })).switchIfEmpty(personalService.save(personal));
-
-              }
-              return Mono.just(req);
-            }).onErrorResume(error->{
-                Personal p = Personal.builder().build();
-                p.setDescrip("The user does not have an account created.");
-                return Mono.just(p); });
   }
 
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @param empresarial {@link Empresarial}
+   * @return {@link Mono}&lt;{@link Personal}&gt;
+   * @see String
+   * @see Mono
+   */
+  public Mono<Empresarial> savePymeVerify(Empresarial empresarial) {
+    Empresarial returnEmpresa = Empresarial.builder().build();
+    returnEmpresa.setDescripcion("AAA");
+    return Mono.just(returnEmpresa);
+  }
 
 
 }

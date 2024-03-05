@@ -58,16 +58,12 @@ public class Personal extends BaseDomain implements Serializable {
    **/
   private String type;
 
+  private String dni;
+
   /**
    *.
    **/
   private String typeCliente;
-
-
-  /**
-   *.
-   **/
-  private String catalog;
 
   /**
    *.
@@ -82,12 +78,7 @@ public class Personal extends BaseDomain implements Serializable {
   /**
    *.
    **/
-  private BigDecimal montoTotal;
-
-  /**
-   *.
-   **/
-  private Pasivo pasivo;
+  private Activo activo;
 
 
 }

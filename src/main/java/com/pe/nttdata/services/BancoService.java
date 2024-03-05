@@ -1,5 +1,6 @@
 package com.pe.nttdata.services;
 
+import com.pe.nttdata.entity.Activo;
 import com.pe.nttdata.entity.Pasivo;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -45,16 +46,47 @@ public class BancoService {
    * Flux all elements from Mongo passing for
    * reactivate Flux passing the id as a parameter.
    *
-   * @param pasivo {@link Pasivo}
+   * @param dni {@link String}
+   * @return {@link Mono}&lt;{@link Activo}&gt;
+   * @see Mono
+   * @see Activo
+   */
+  public Mono<Activo> checkExitPersonalCtaRest(@RequestBody @NotNull String dni) {
+    return this.webClient.get().uri("/banco/api/v1/findByDNI/{dni}",dni)
+            .retrieve()
+            .bodyToMono(Activo.class);
+  }
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @param id {@link String}
+   * @return {@link Mono}&lt;{@link Activo}&gt;
+   * @see Mono
+   * @see Activo
+   */
+  public Mono<Activo> updateStatusActivo(@RequestBody @NotNull String id) {
+    return this.webClient.get().uri("/banco/api/v1/updateStatusByid/{id}",id)
+            .retrieve()
+            .bodyToMono(Activo.class);
+  }
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @param activo {@link Pasivo}
    * @return {@link Mono}&lt;{@link Pasivo}&gt;
    * @see Mono
    * @see Pasivo
    */
-  public Mono<Pasivo> aperturaCtaRestCall(@RequestBody @NotNull Pasivo pasivo) {
-    return this.webClient.post().uri("/banco/api/v1/save")
-            .body(BodyInserters.fromValue(pasivo))
+  public Mono<Pasivo> aperturaBusinessCtaRest(@RequestBody @NotNull Activo activo) {
+    return this.webClient.post().uri("/banco/api/v1/saveBusiness")
+            .body(BodyInserters.fromValue(activo))
             .retrieve()
             .bodyToMono(Pasivo.class);
   }
-
 }

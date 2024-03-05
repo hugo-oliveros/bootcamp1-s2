@@ -48,13 +48,12 @@ public class VipPymeController {
   @Autowired
   private VipPymeService vipPymeService;
 
-
   /**
    * <p/>
    * Flux all elements from Mongo passing for
    * reactivate Flux passing the id as a parameter.
    *
-   * @param personal {@link Empresarial}
+   * @param personal {@link Personal}
    * @return {@link Mono}&lt;{@link Personal}&gt;
    * @see String
    * @see Mono
@@ -64,7 +63,25 @@ public class VipPymeController {
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Personal> save(@RequestBody @NotNull final Personal personal) {
-    return vipPymeService.saveVipAndVerify(personal);
+    return vipPymeService.saveVipVerify(personal);
+  }
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @param empresarial {@link Empresarial}
+   * @return {@link Mono}&lt;{@link Personal}&gt;
+   * @see String
+   * @see Mono
+   */
+  @PostMapping(path = "/savePyme",
+          consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.CREATED)
+  public Mono<Empresarial> save(@RequestBody @NotNull final Empresarial empresarial) {
+    return vipPymeService.savePymeVerify(empresarial);
   }
 
 }
