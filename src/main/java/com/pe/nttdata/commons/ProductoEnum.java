@@ -7,9 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public enum ProductoEnum {
 
-    AHORRO("Ahorro"),
-    CTA_CORRIENTE("Cuenta corriente"),
-    PLAZO_FIJO("Plazo fijo");
+    VIP("VIP"),
+    PYME("PYME");
 
     private String value;
 

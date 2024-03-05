@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pe.nttdata.domain.BaseDomain;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.bson.types.ObjectId;
@@ -61,6 +61,12 @@ public class Personal extends BaseDomain implements Serializable {
   /**
    *.
    **/
+  private String typeCliente;
+
+
+  /**
+   *.
+   **/
   private String catalog;
 
   /**
@@ -68,6 +74,15 @@ public class Personal extends BaseDomain implements Serializable {
    **/
   private String descrip;
 
+  /**
+   *.
+   **/
+  private Integer maxMoviento;
+
+  /**
+   *.
+   **/
+  private BigDecimal montoTotal;
 
   /**
    *.

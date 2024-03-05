@@ -59,12 +59,12 @@ public class VipPymeController {
    * @see String
    * @see Mono
    */
-  @PostMapping(path = "/save",
+  @PostMapping(path = "/saveVip",
           consumes = MediaType.APPLICATION_JSON_VALUE,
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Personal> save(@RequestBody @NotNull final Personal personal) {
-    return vipPymeService.saveAndVerify(personal);
+    return vipPymeService.saveVipAndVerify(personal);
   }
 
 }
