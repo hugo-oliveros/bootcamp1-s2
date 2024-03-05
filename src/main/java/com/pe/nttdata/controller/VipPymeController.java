@@ -1,20 +1,16 @@
 package com.pe.nttdata.controller;
 
 import com.pe.nttdata.entity.Empresarial;
+import com.pe.nttdata.entity.Moviento;
 import com.pe.nttdata.entity.Personal;
 import com.pe.nttdata.services.VipPymeService;
 import javax.validation.constraints.NotNull;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -82,6 +78,47 @@ public class VipPymeController {
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Empresarial> save(@RequestBody @NotNull final Empresarial empresarial) {
     return vipPymeService.savePymeVerify(empresarial);
+  }
+
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @return {@link Flux}&lt;{@link Moviento}&gt;
+   * @see Moviento
+   * @see Flux
+   */
+  @GetMapping(value = "/allMovBank")
+  @ResponseStatus(HttpStatus.OK)
+  public Flux<Moviento> getAllMovBack() {
+    return vipPymeService.getAllMovientoBank();
+  }
+
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @return {@link Flux}&lt;{@link Moviento}&gt;
+   * @see Moviento
+   * @see Flux
+   */
+  @GetMapping(value = "/totalMovBank")
+  @ResponseStatus(HttpStatus.OK)
+  public Flux<Moviento> totalMovBank() {
+    return vipPymeService.getAllMovientoBank()
+            .groupBy(Moviento::getNumberAccount)
+            .flatMap(f ->{
+              return f;
+            });
+  }
+
+
+  public String idReturn(Moviento mov) {
+    return mov.getId().toString();
   }
 
 }

@@ -3,12 +3,14 @@ package com.pe.nttdata.services;
 import com.pe.nttdata.commons.ProductoEnum;
 import com.pe.nttdata.entity.Activo;
 import com.pe.nttdata.entity.Empresarial;
+import com.pe.nttdata.entity.Moviento;
 import com.pe.nttdata.entity.Personal;
 import com.pe.nttdata.util.MapperUtils;
 import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
@@ -149,5 +151,19 @@ public class VipPymeService {
               }));
 
   }
+
+    /**
+     * <p/>
+     * Flux all elements from Mongo passing for
+     * reactivate Flux passing the id as a parameter.
+     *
+     * @return {@link Flux}&lt;{@link Moviento}&gt;
+     * @see String
+     * @see Flux
+     */
+    public Flux<Moviento> getAllMovientoBank(){
+        return bancoService.getAllMovBank();
+
+    }
 
 }

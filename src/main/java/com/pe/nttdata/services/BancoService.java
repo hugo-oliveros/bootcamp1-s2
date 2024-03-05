@@ -1,6 +1,7 @@
 package com.pe.nttdata.services;
 
 import com.pe.nttdata.entity.Activo;
+import com.pe.nttdata.entity.Moviento;
 import com.pe.nttdata.entity.Pasivo;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -88,6 +90,22 @@ public class BancoService {
     return this.webClient.get().uri("/banco/api/v1/updateStatusByid/{id}",id)
             .retrieve()
             .bodyToMono(Activo.class);
+  }
+
+
+  /**
+   * <p/>
+   * Flux all elements from Mongo passing for
+   * reactivate Flux passing the id as a parameter.
+   *
+   * @return {@link Mono}&lt;{@link Moviento}&gt;
+   * @see Mono
+   * @see Activo
+   */
+  public Flux<Moviento> getAllMovBank() {
+    return this.webClient.get().uri("/moviento/api/v1/all")
+            .retrieve()
+            .bodyToFlux(Moviento.class);
   }
 
   /**
