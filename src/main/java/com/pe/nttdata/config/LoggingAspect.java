@@ -66,16 +66,18 @@ public class LoggingAspect {
   @Around(value = "execution(* com.pe.nttdata.controller..*(..))")
   public Object aroundAdvice(ProceedingJoinPoint joinPoint) {
 
+    logSystem = AppProcesoLogDto.builder().build();
+    listaParametros.clear();
 
     try {
-      listaParametrosTmp = Arrays.asList(joinPoint.getArgs());
-      listaParametrosTmp.forEach(req -> {
+      Arrays.asList(joinPoint.getArgs()).forEach(req -> {
         if (!(req instanceof HttpServletRequest
                 || req instanceof BindingResult
                 || req instanceof UriComponentsBuilder)) {
           listaParametros.add(req);
         }
       });
+
 
       if (listaParametros != null && !listaParametros.isEmpty()) {
         ObjectMapper mapperEntrada = new ObjectMapper();
@@ -132,13 +134,14 @@ public class LoggingAspect {
           final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
           final Method method = signature.getMethod();
           logSystem.setClaseProgramacion(signature.getDeclaringType().getSimpleName());
-          logSystem.setClaseProgramacion(signature.getDeclaringType().getSimpleName());
+          logSystem.setMetodoProgramacion(method.getName());
           String claseHija = joinPoint.getTarget().getClass().getSimpleName();
           if (Optional.ofNullable(claseHija).isPresent()) {
             logSystem.setClaseProgramacion(claseHija);
           }
           logSystem.setFechaFinEjecucion(DateUtils.obtenerFechaHoraActual());
           logSystem.setDuracionMs((int) executionTime);
+          logSystem.setResultadoSalida(response.toString());
           log.info("\u001B[33mLog logExecutionTime - ** {} ** \u001B[0m", logSystem.toString());
         }));
 
