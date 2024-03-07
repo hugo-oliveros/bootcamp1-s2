@@ -49,8 +49,7 @@ public class DateUtils {
    **/
   public static ZonedDateTime getCurrentZonedDateTime(ZoneId zoneId) {
     Instant now = Instant.now();
-    ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(now, zoneId);
-    return zonedDateTime;
+    return ZonedDateTime.ofInstant(now, zoneId);
   }
 
   /**
@@ -61,8 +60,7 @@ public class DateUtils {
    **/
   public static Date obtenerFechaHoraActual() {
     ZoneId zona = ZoneId.systemDefault();
-    Date fechaActual = Date.from(LocalDateTime.now().atZone(zona).toInstant());
-    return fechaActual;
+    return Date.from(LocalDateTime.now().atZone(zona).toInstant());
   }
 
   /**
@@ -75,8 +73,7 @@ public class DateUtils {
     ZoneId zona = ZoneId.systemDefault();
     LocalDateTime localDateTime = LocalDateTime.now();
     localDateTime = localDateTime.minusMinutes(minutes);
-    Date fechaActual = Date.from(localDateTime.atZone(zona).toInstant());
-    return fechaActual;
+    return Date.from(localDateTime.atZone(zona).toInstant());
   }
 
   /**
@@ -89,8 +86,7 @@ public class DateUtils {
     ZoneId zona = ZoneId.systemDefault();
     LocalDateTime localDateTime = LocalDateTime.now();
     localDateTime = localDateTime.plusMinutes(minutes);
-    Date fechaActual = Date.from(localDateTime.atZone(zona).toInstant());
-    return fechaActual;
+    return Date.from(localDateTime.atZone(zona).toInstant());
   }
 
   /**
@@ -103,8 +99,7 @@ public class DateUtils {
     ZoneId zona = ZoneId.systemDefault();
     LocalDateTime localDateTime = LocalDateTime.now();
     localDateTime = localDateTime.plusHours(horas);
-    Date fechaActual = Date.from(localDateTime.atZone(zona).toInstant());
-    return fechaActual;
+    return Date.from(localDateTime.atZone(zona).toInstant());
   }
 
 }
