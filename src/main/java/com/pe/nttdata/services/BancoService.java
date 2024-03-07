@@ -5,6 +5,7 @@ import com.pe.nttdata.entity.Moviento;
 import com.pe.nttdata.entity.Pasivo;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -38,6 +39,9 @@ public class BancoService {
    * WebClient webClient
    **/
   private final WebClient webClient;
+
+  @Value("${user.endpoints1}")
+  private String urlEndPoint;
 
   public BancoService(WebClient.Builder webClientBuilder) {
     this.webClient = webClientBuilder.baseUrl("http://localhost:8085").build();

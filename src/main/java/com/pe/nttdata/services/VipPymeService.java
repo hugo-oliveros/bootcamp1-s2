@@ -49,7 +49,6 @@ public class VipPymeService {
   @Autowired
   private PersonalService personalService;
 
-
   /**
    * .
    * BancoService bancoService

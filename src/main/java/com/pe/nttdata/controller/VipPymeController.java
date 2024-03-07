@@ -111,7 +111,7 @@ public class VipPymeController {
   public Flux<Moviento> totalMovBank() {
     return vipPymeService.getAllMovientoBank()
             .groupBy(Moviento::getNumberAccount)
-            .flatMap(f ->{
+            .flatMap(f -> {
               return f;
             });
   }
