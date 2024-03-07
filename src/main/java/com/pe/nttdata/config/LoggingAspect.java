@@ -2,7 +2,6 @@ package com.pe.nttdata.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.pe.nttdata.commons.AspectEnum;
 import com.pe.nttdata.dto.AppProcesoLogDto;
 import com.pe.nttdata.util.DateUtils;
