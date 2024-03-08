@@ -1,8 +1,8 @@
-package com.pe.nttdata.services;
+package com.pe.nttdata.dao;
 
-import com.pe.nttdata.entity.Empresarial;
-import com.pe.nttdata.entity.Moviento;
-import com.pe.nttdata.entity.Personal;
+import com.pe.nttdata.model.entity.Empresarial;
+import com.pe.nttdata.model.entity.Moviento;
+import com.pe.nttdata.model.entity.Personal;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

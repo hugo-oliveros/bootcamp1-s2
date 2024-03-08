@@ -1,9 +1,9 @@
-package com.pe.nttdata.entity;
+package com.pe.nttdata.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.pe.nttdata.domain.BaseDomain;
+import com.pe.nttdata.model.domain.BaseDomain;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

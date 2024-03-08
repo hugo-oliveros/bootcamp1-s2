@@ -1,21 +1,40 @@
-package com.pe.nttdata.entity;
+package com.pe.nttdata.model.entity;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.pe.nttdata.domain.BaseDomain;
-import lombok.Data;
+import com.pe.nttdata.model.domain.BaseDomain;
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.Builder;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.io.Serializable;
-import java.math.BigDecimal;
 
-@Document(collection = "Activo")
+
+/**
+ *Implement Personal. <br/>
+ *<b>Class</b>: {@link Personal}<br/>
+ *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
+ *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
+ *
+ *@author NTTDATA Per&uacute;. (EVE) <br/>
+ *<u>Developed by</u>: <br/>
+ *<ul>
+ *<li>Hugo Oliveros Monti</li>
+ *</ul>
+ *<u>Changes</u>:<br/>
+ *<ul>
+ *<li>feb. 29, 2024 (acronym) Creation class.</li>
+ *</ul>
+ *@version 1.0
+ */
+@Document(collection = "Personal")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +42,7 @@ import java.math.BigDecimal;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Activo  extends BaseDomain implements Serializable {
+public class Personal extends BaseDomain implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -39,21 +58,13 @@ public class Activo  extends BaseDomain implements Serializable {
    **/
   private String type;
 
+  private String dni;
+
+
   /**
    *.
    **/
   private String typeCliente;
-
-  /**
-   *.
-   **/
-  private String status;
-
-  /**
-   *.
-   **/
-  private Integer maxMoviento;
-
 
   /**
    *.
@@ -63,16 +74,12 @@ public class Activo  extends BaseDomain implements Serializable {
   /**
    *.
    **/
-  private Persona persona;
+  private Integer maxMoviento;
 
   /**
    *.
    **/
-  private Empresa empresa;
+  private Activo activo;
 
-  /**
-   *.
-   **/
-  private TarjetaCredito tarjeta;
 
 }

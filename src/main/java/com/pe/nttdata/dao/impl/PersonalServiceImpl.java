@@ -1,8 +1,8 @@
-package com.pe.nttdata.services.impl;
+package com.pe.nttdata.dao.impl;
 
-import com.pe.nttdata.entity.Personal;
-import com.pe.nttdata.repository.PersonalRepository;
-import com.pe.nttdata.services.PersonalService;
+import com.pe.nttdata.model.entity.Personal;
+import com.pe.nttdata.dao.repository.PersonalRepository;
+import com.pe.nttdata.dao.PersonalService;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;

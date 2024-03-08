@@ -1,11 +1,14 @@
-package com.pe.nttdata.services.impl;
+package com.pe.nttdata.dao.impl;
 
 import com.pe.nttdata.commons.ProductoEnum;
-import com.pe.nttdata.entity.Activo;
-import com.pe.nttdata.entity.Empresarial;
-import com.pe.nttdata.entity.Moviento;
-import com.pe.nttdata.entity.Personal;
-import com.pe.nttdata.services.VipPymeService;
+import com.pe.nttdata.model.entity.Activo;
+import com.pe.nttdata.model.entity.Empresarial;
+import com.pe.nttdata.model.entity.Moviento;
+import com.pe.nttdata.model.entity.Personal;
+import com.pe.nttdata.dao.EmpresarialService;
+import com.pe.nttdata.dao.PersonalService;
+import com.pe.nttdata.dao.VipPymeService;
+import com.pe.nttdata.dao.BancoService;
 import com.pe.nttdata.util.MapperUtils;
 import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 
 /**
  *Implement VipPymeService. <br/>
@@ -41,21 +43,21 @@ public class VipPymeServiceImpl implements VipPymeService {
    * EmpresarialService empresarialService
    **/
   @Autowired
-  private EmpresarialServiceImpl empresarialServiceImpl;
+  private EmpresarialService empresarialService;
 
   /**
    * .
    * PersonalService personalService
    **/
   @Autowired
-  private PersonalServiceImpl personalServiceImpl;
+  private PersonalService personalService;
 
   /**
    * .
    * BancoService bancoService
    **/
   @Autowired
-  private BancoServiceImpl bancoServiceImpl;
+  private BancoService bancoService;
 
   private Personal personaReturn  = Personal.builder().build();
 
@@ -74,7 +76,7 @@ public class VipPymeServiceImpl implements VipPymeService {
    */
   @Override
   public Mono<Personal> saveVipVerify(Personal personal) {
-    return bancoServiceImpl.checkExitPersonalCtaRest(personal.getDni())
+    return bancoService.checkExitPersonalCtaRest(personal.getDni())
               .map(activo -> MapperUtils.mapper(Activo.class, activo))
                .flatMap(req -> {
                  if ((req.getTarjeta().getMontoTotal().compareTo(new BigDecimal("500")) > 0)
@@ -84,11 +86,11 @@ public class VipPymeServiceImpl implements VipPymeService {
                    personaReturn.setType(req.getType());
                    personaReturn.setTypeCliente(req.getTypeCliente());
                    personaReturn.setMaxMoviento(req.getMaxMoviento());
-                   return bancoServiceImpl.updateStatusActivo(req.getId().toString())
+                   return bancoService.updateStatusActivo(req.getId().toString())
                            .flatMap(f -> {
                              req.setStatus(f.getStatus());
                              personaReturn.setActivo(req);
-                             return personalServiceImpl.save(personaReturn);
+                             return personalService.save(personaReturn);
                            });
                  }
 
@@ -121,7 +123,7 @@ public class VipPymeServiceImpl implements VipPymeService {
    */
   @Override
   public Mono<Empresarial> savePymeVerify(Empresarial empresarial) {
-    return bancoServiceImpl.checkExitEmpresarialCtaRest(empresarial.getRuc())
+    return bancoService.checkExitEmpresarialCtaRest(empresarial.getRuc())
               .map(activo -> MapperUtils.mapper(Activo.class, activo))
               .flatMap(req -> {
                 if (req.getTypeCliente().equals(ProductoEnum.PYME.getValue())
@@ -130,11 +132,11 @@ public class VipPymeServiceImpl implements VipPymeService {
                   empresaReturn = Empresarial.builder().build();
                   empresaReturn.setType(req.getType());
 
-                  return bancoServiceImpl.updateStatusActivo(req.getId().toString())
+                  return bancoService.updateStatusActivo(req.getId().toString())
                           .flatMap(f -> {
                             req.setStatus(f.getStatus());
                             empresaReturn.setActivo(req);
-                            return empresarialServiceImpl.save(empresaReturn);
+                            return empresarialService.save(empresaReturn);
                           });
                 }
 
@@ -165,7 +167,7 @@ public class VipPymeServiceImpl implements VipPymeService {
    */
   @Override
   public Flux<Moviento> getAllMovientoBank() {
-    return bancoServiceImpl.getAllMovBank();
+    return bancoService.getAllMovBank();
   }
 
 }

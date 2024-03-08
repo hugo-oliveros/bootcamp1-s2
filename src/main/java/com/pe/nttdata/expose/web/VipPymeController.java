@@ -1,9 +1,9 @@
-package com.pe.nttdata.controller;
+package com.pe.nttdata.expose.web;
 
-import com.pe.nttdata.entity.Empresarial;
-import com.pe.nttdata.entity.Moviento;
-import com.pe.nttdata.entity.Personal;
-import com.pe.nttdata.services.impl.VipPymeServiceImpl;
+import com.pe.nttdata.model.entity.Empresarial;
+import com.pe.nttdata.model.entity.Moviento;
+import com.pe.nttdata.model.entity.Personal;
+import com.pe.nttdata.dao.VipPymeService;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class VipPymeController {
    * VipPymeService vipPymeService
    **/
   @Autowired
-  private VipPymeServiceImpl vipPymeServiceImpl;
+  private VipPymeService vipPymeService;
 
   /**
    * <p/>
@@ -65,7 +65,7 @@ public class VipPymeController {
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Personal> save(@RequestBody @NotNull final Personal personal) {
-    return vipPymeServiceImpl.saveVipVerify(personal);
+    return vipPymeService.saveVipVerify(personal);
   }
 
   /**
@@ -83,7 +83,7 @@ public class VipPymeController {
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Empresarial> save(@RequestBody @NotNull final Empresarial empresarial) {
-    return vipPymeServiceImpl.savePymeVerify(empresarial);
+    return vipPymeService.savePymeVerify(empresarial);
   }
 
 
@@ -99,7 +99,7 @@ public class VipPymeController {
   @GetMapping(value = "/allMovBank")
   @ResponseStatus(HttpStatus.OK)
   public Flux<Moviento> getAllMovBack() {
-    return vipPymeServiceImpl.getAllMovientoBank();
+    return vipPymeService.getAllMovientoBank();
   }
 
 
@@ -115,7 +115,7 @@ public class VipPymeController {
   @GetMapping(value = "/totalMovBank")
   @ResponseStatus(HttpStatus.OK)
   public Flux<Moviento> totalMovBank() {
-    return vipPymeServiceImpl.getAllMovientoBank()
+    return vipPymeService.getAllMovientoBank()
             .groupBy(Moviento::getNumberAccount)
             .flatMap(f -> {
               return f;

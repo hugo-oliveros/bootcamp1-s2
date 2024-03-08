@@ -1,10 +1,9 @@
-package com.pe.nttdata.controller;
+package com.pe.nttdata.expose.web;
 
-
-import com.pe.nttdata.entity.Empresarial;
-import com.pe.nttdata.repository.EmpresarialRepository;
+import com.pe.nttdata.model.entity.Empresarial;
+import com.pe.nttdata.model.entity.Personal;
+import com.pe.nttdata.dao.PersonalService;
 import javax.validation.constraints.NotNull;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
 /**
- *Implement EmpresaRepository. <br/>
- *<b>Class</b>: {@link EmpresarialController}<br/>
+ *Implement PersonalController. <br/>
+ *<b>Class</b>: {@link PersonalController}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -39,20 +37,18 @@ import reactor.core.publisher.Mono;
  *</ul>
  *@version 1.0
  */
-
 @RestController
-@RequestMapping("empresarial/api/v1")
+@RequestMapping("personal/api/v1")
 @CrossOrigin("*")
 @Slf4j
-public class EmpresarialController {
+public class PersonalController {
 
   /**
    * .
-   * EmpresaRepository empresaRepository
+   * PersonalService personalService
    **/
   @Autowired
-  private EmpresarialRepository empresaRepository;
-
+  private PersonalService personalService;
 
   /**
    * </p>
@@ -64,8 +60,8 @@ public class EmpresarialController {
    **/
   @GetMapping(value = "/all")
   @ResponseStatus(HttpStatus.OK)
-  public Flux<Empresarial> getAll() {
-    return empresaRepository.findAll();
+  public Flux<Personal> getAll() {
+    return personalService.findAll();
   }
 
   /**
@@ -80,9 +76,8 @@ public class EmpresarialController {
    */
   @GetMapping(value = "/find/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Mono<Empresarial> findById(@PathVariable("id")
-                                    @NotNull final String id) {
-    return empresaRepository.findById(id);
+  public Mono<Personal> find(final @PathVariable("id") @NotNull String id) {
+    return personalService.findById(id);
   }
 
   /**
@@ -90,8 +85,8 @@ public class EmpresarialController {
    * Flux all elements from Mongo passing for
    * reactivate Flux passing the id as a parameter.
    *
-   * @param empresa {@link Empresarial}
-   * @return {@link Mono}&lt;{@link Empresarial}&gt;
+   * @param personal {@link Personal}
+   * @return {@link Mono}&lt;{@link Personal}&gt;
    * @see String
    * @see Mono
    */
@@ -99,8 +94,8 @@ public class EmpresarialController {
           consumes = MediaType.APPLICATION_JSON_VALUE,
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
-  public Mono<Empresarial> save(@RequestBody @NotNull final Empresarial empresa) {
-    return empresaRepository.save(empresa);
+  public Mono<Personal> save(final @RequestBody @NotNull Personal personal) {
+    return personalService.save(personal);
   }
 
   /**
@@ -116,8 +111,8 @@ public class EmpresarialController {
    */
   @DeleteMapping(value = "/delete/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public Mono<Void> delete(@PathVariable("id") @NotNull final String id) {
-    return empresaRepository.deleteById(id);
+  public Mono<Void> delete(final @PathVariable("id") @NotNull String id) {
+    return personalService.deleteById(id);
   }
 
 }

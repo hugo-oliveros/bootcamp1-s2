@@ -1,8 +1,8 @@
-package com.pe.nttdata.services.impl;
+package com.pe.nttdata.dao.impl;
 
-import com.pe.nttdata.entity.Empresarial;
-import com.pe.nttdata.repository.EmpresarialRepository;
-import com.pe.nttdata.services.EmpresarialService;
+import com.pe.nttdata.model.entity.Empresarial;
+import com.pe.nttdata.dao.repository.EmpresarialRepository;
+import com.pe.nttdata.dao.EmpresarialService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

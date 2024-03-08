@@ -1,6 +1,6 @@
-package com.pe.nttdata.services;
+package com.pe.nttdata.dao;
 
-import com.pe.nttdata.entity.Empresarial;
+import com.pe.nttdata.model.entity.Empresarial;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

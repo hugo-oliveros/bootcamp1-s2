@@ -1,47 +1,28 @@
-package com.pe.nttdata.entity;
+package com.pe.nttdata.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.pe.nttdata.domain.BaseDomain;
-import java.io.Serializable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.pe.nttdata.model.domain.BaseDomain;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.Builder;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.io.Serializable;
 
-/**
- *Implement Empresarial. <br/>
- *<b>Class</b>: {@link Empresarial}<br/>
- *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
- *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
- *
- *@author NTTDATA Per&uacute;. (EVE) <br/>
- *<u>Developed by</u>: <br/>
- *<ul>
- *<li>Hugo Oliveros Monti</li>
- *</ul>
- *<u>Changes</u>:<br/>
- *<ul>
- *<li>feb. 29, 2024 (acronym) Creation class.</li>
- *</ul>
- *@version 1.0
- */
-@Document(collection = "Empresarial")
+@Document(collection = "Activo")
 @Data
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Empresarial extends BaseDomain implements Serializable {
+public class Activo  extends BaseDomain implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -60,26 +41,37 @@ public class Empresarial extends BaseDomain implements Serializable {
   /**
    *.
    **/
-  private String razonSocial;
+  private String typeCliente;
 
   /**
    *.
    **/
-  private String ruc;
+  private String status;
 
   /**
    *.
    **/
-  private String direccion;
+  private Integer maxMoviento;
+
 
   /**
    *.
    **/
   private String descrip;
 
+  /**
+   *.
+   **/
+  private Persona persona;
 
   /**
    *.
    **/
-  private Activo activo;
+  private Empresa empresa;
+
+  /**
+   *.
+   **/
+  private TarjetaCredito tarjeta;
+
 }

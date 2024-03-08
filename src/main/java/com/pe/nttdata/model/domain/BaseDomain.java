@@ -1,4 +1,4 @@
-package com.pe.nttdata.domain;
+package com.pe.nttdata.model.domain;
 
 
 import java.time.LocalDateTime;

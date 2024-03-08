@@ -1,13 +1,12 @@
-package com.pe.nttdata.services;
+package com.pe.nttdata.dao;
 
-import com.pe.nttdata.entity.Activo;
-import com.pe.nttdata.entity.Moviento;
-import com.pe.nttdata.entity.Pasivo;
+import com.pe.nttdata.model.entity.Activo;
+import com.pe.nttdata.model.entity.Moviento;
+import com.pe.nttdata.model.entity.Pasivo;
 import javax.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 
 /**
  *Interface BancoService. <br/>

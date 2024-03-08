@@ -62,7 +62,7 @@ public class LoggingAspect {
    * @param joinPoint {@link ProceedingJoinPoint}
    * @see ProceedingJoinPoint
    */
-  @Around(value = "execution(* com.pe.nttdata.controller..*(..))")
+  @Around(value = "execution(* com.pe.nttdata.expose.web..*(..))")
   public Object aroundAdvice(ProceedingJoinPoint joinPoint) {
 
     listaParametros.clear();

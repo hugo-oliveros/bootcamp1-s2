@@ -1,9 +1,9 @@
-package com.pe.nttdata.entity;
+package com.pe.nttdata.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.pe.nttdata.domain.BaseDomain;
+import com.pe.nttdata.model.domain.BaseDomain;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,6 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Document(collection = "Movimiento")

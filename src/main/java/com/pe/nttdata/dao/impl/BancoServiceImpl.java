@@ -1,9 +1,9 @@
-package com.pe.nttdata.services.impl;
+package com.pe.nttdata.dao.impl;
 
-import com.pe.nttdata.entity.Activo;
-import com.pe.nttdata.entity.Moviento;
-import com.pe.nttdata.entity.Pasivo;
-import com.pe.nttdata.services.BancoService;
+import com.pe.nttdata.model.entity.Activo;
+import com.pe.nttdata.model.entity.Moviento;
+import com.pe.nttdata.model.entity.Pasivo;
+import com.pe.nttdata.dao.BancoService;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
