@@ -35,14 +35,17 @@ public class PersonalServiceImpl implements PersonalService {
   @Autowired
   private PersonalRepository personalRepository;
 
+  @Override
   public Flux<Personal> findAll() {
     return personalRepository.findAll();
   }
 
+  @Override
   public Mono<Personal> findById(String id) {
     return personalRepository.findById(id);
   }
 
+  @Override
   public Mono<Personal> save(Personal persona) {
     return personalRepository.save(persona);
   }
@@ -58,6 +61,7 @@ public class PersonalServiceImpl implements PersonalService {
    * @see String
    * @see Mono
    */
+  @Override
   public  Mono<Personal> update(final String id, final Personal persona) {
     return personalRepository.findById(id)
             .map(Optional::of)
@@ -71,6 +75,7 @@ public class PersonalServiceImpl implements PersonalService {
             });
   }
 
+  @Override
   public Mono<Void> deleteById(String id) {
     return personalRepository.deleteById(id);
   }

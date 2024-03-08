@@ -34,18 +34,22 @@ public class EmpresarialServiceImpl implements EmpresarialService {
   @Autowired
   private EmpresarialRepository empresaRepository;
 
+  @Override
   public Flux<Empresarial> findAll() {
     return empresaRepository.findAll();
   }
 
+  @Override
   public Mono<Empresarial> findById(String id) {
     return empresaRepository.findById(id);
   }
 
+  @Override
   public Mono<Empresarial> save(Empresarial empresa) {
     return empresaRepository.save(empresa);
   }
 
+  @Override
   public Mono<Void> deleteById(String id) {
     return empresaRepository.deleteById(id);
   }

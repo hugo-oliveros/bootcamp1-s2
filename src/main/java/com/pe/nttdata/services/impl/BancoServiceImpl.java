@@ -58,6 +58,7 @@ public class BancoServiceImpl implements BancoService {
    * @see Mono
    * @see Activo
    */
+  @Override
   public Mono<Activo> checkExitPersonalCtaRest(@RequestBody @NotNull String dni) {
     return this.webClient.get().uri("/banco/api/v1/findByDNI/{dni}", dni)
             .retrieve()
@@ -75,6 +76,7 @@ public class BancoServiceImpl implements BancoService {
    * @see Mono
    * @see Activo
    */
+  @Override
   public Mono<Activo> checkExitEmpresarialCtaRest(@RequestBody @NotNull String ruc) {
     return this.webClient.get().uri("/banco/api/v1/findByRUC/{ruc}", ruc)
             .retrieve()
@@ -91,6 +93,7 @@ public class BancoServiceImpl implements BancoService {
    * @see Mono
    * @see Activo
    */
+  @Override
   public Mono<Activo> updateStatusActivo(@RequestBody @NotNull String id) {
     return this.webClient.get().uri("/banco/api/v1/updateStatusByid/{id}", id)
             .retrieve()
@@ -107,6 +110,7 @@ public class BancoServiceImpl implements BancoService {
    * @see Mono
    * @see Activo
    */
+  @Override
   public Flux<Moviento> getAllMovBank() {
     return this.webClient.get().uri("/moviento/api/v1/all")
             .retrieve()
@@ -123,6 +127,7 @@ public class BancoServiceImpl implements BancoService {
    * @see Mono
    * @see Pasivo
    */
+  @Override
   public Mono<Pasivo> aperturaBusinessCtaRest(@RequestBody @NotNull Activo activo) {
     return this.webClient.post().uri("/banco/api/v1/saveBusiness")
             .body(BodyInserters.fromValue(activo))
