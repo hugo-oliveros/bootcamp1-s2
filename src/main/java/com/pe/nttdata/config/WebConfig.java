@@ -1,6 +1,6 @@
 package com.pe.nttdata.config;
 
-import com.pe.nttdata.interceptor.RequestInterceptor;
+import com.pe.nttdata.config.interceptor.RequestInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

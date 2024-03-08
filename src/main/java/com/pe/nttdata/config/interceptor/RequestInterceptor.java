@@ -1,4 +1,4 @@
-package com.pe.nttdata.interceptor;
+package com.pe.nttdata.config.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
