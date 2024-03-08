@@ -32,17 +32,17 @@ public class RequestInterceptor implements HandlerInterceptor {
   @Override
   public boolean preHandle(HttpServletRequest request,
                            HttpServletResponse response, Object object) {
-    log.info("1 - pre handle.");
-    log.info("METHOD type:{}", request.getMethod());
-    log.info("Request URI: {}", request.getRequestURI());
-    log.info("Servlet PATH: {}", request.getServletPath());
+    log.info("\u001B[32m1 - pre handle.\u001B[0m");
+    log.info("\u001B[32mMETHOD type:{}\u001B[0m", request.getMethod());
+    log.info("\u001B[32mRequest URI: {}\u001B[0m", request.getRequestURI());
+    log.info("\u001B[32mServlet PATH: {}\u001B[0m", request.getServletPath());
     if (object instanceof HandlerMethod) {
       Class<?> controllerClass = ((HandlerMethod) object).getBeanType();
       String methodName = ((HandlerMethod) object).getMethod().getName();
-      log.info("Controller name: {}", controllerClass.getName());
-      log.info("Method name: {}", methodName);
+      log.info("\u001B[34mController name: {}\u001B[0m", controllerClass.getName());
+      log.info("\u001B[34mMethod name: {}\u001B[0m", methodName);
     }
-    log.info("--------------------------------------------");
+    log.info("\u001B[34m--------------------------------------------\u001B[0m");
     return true;
   }
 
@@ -51,7 +51,7 @@ public class RequestInterceptor implements HandlerInterceptor {
                          HttpServletResponse response,
                          Object handler,
                          ModelAndView modelAndView) throws Exception {
-    log.info("Post Handle method is Calling");
+    log.info("\u001B[32mPost Handle method is Calling\u001B[0m");
   }
 
   @Override
@@ -59,7 +59,7 @@ public class RequestInterceptor implements HandlerInterceptor {
                               HttpServletResponse response,
                               Object handler,
                               Exception exception) throws Exception {
-    log.info("Request and Response is completed");
+    log.info("\u001B[32mRequest and Response is completed\u001B[0m");
   }
 
 }

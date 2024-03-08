@@ -23,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
 /**
  *Implement LoggingAspect. <br/>
  *<b>Class</b>: {@link LoggingAspect}<br/>
@@ -96,11 +95,8 @@ public class LoggingAspect {
       logSystem.setParametroEntrada(null);
     }
 
-
     logSystem.setFechaInicioEjecucion(new java.util.Date());
     logSystem.setModulo(aplicatiobName);
-
-    ///Object proceed = null;
     try {
 
       if (joinPoint.proceed() instanceof Mono) { //if Mono
@@ -145,7 +141,7 @@ public class LoggingAspect {
     final long executionTime = System.currentTimeMillis() - start;
     logSystem.setDuracionMs((int) executionTime);
     logSystem.setResultadoSalida(response.toString());
-    log.info("\u001B[33mLog logExecutionTime - ** {} ** \u001B[0m", logSystem.toString());
+    log.info("\u001B[33mLog logExecutionTime - ** \u001B[36m{} \u001B[33m** \u001B[0m", logSystem.toString());
 
   }
 
