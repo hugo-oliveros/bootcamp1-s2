@@ -1,14 +1,14 @@
-package com.pe.nttdata.dao.impl;
+package com.pe.nttdata.business.impl;
 
+import com.pe.nttdata.business.BancoService;
+import com.pe.nttdata.business.VipPymeService;
 import com.pe.nttdata.commons.ProductoEnum;
+import com.pe.nttdata.dao.EmpresarialDao;
+import com.pe.nttdata.dao.PersonalDao;
 import com.pe.nttdata.model.entity.Activo;
 import com.pe.nttdata.model.entity.Empresarial;
 import com.pe.nttdata.model.entity.Moviento;
 import com.pe.nttdata.model.entity.Personal;
-import com.pe.nttdata.dao.EmpresarialService;
-import com.pe.nttdata.dao.PersonalService;
-import com.pe.nttdata.dao.VipPymeService;
-import com.pe.nttdata.dao.BancoService;
 import com.pe.nttdata.util.MapperUtils;
 import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
@@ -39,18 +39,19 @@ import reactor.core.publisher.Mono;
 public class VipPymeServiceImpl implements VipPymeService {
 
   /**
-   * .
-   * EmpresarialService empresarialService
-   **/
+   * </P>
+   * Data Access Object.
+   * EmpresarialDao empresarialService
+   */
   @Autowired
-  private EmpresarialService empresarialService;
+  private EmpresarialDao empresarialService;
 
   /**
    * .
    * PersonalService personalService
    **/
   @Autowired
-  private PersonalService personalService;
+  private PersonalDao personalDao;
 
   /**
    * .
@@ -90,7 +91,7 @@ public class VipPymeServiceImpl implements VipPymeService {
                            .flatMap(f -> {
                              req.setStatus(f.getStatus());
                              personaReturn.setActivo(req);
-                             return personalService.save(personaReturn);
+                             return personalDao.save(personaReturn);
                            });
                  }
 

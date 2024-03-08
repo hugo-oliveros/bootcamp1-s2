@@ -1,9 +1,9 @@
 package com.pe.nttdata.expose.web;
 
+import com.pe.nttdata.business.VipPymeService;
 import com.pe.nttdata.model.entity.Empresarial;
 import com.pe.nttdata.model.entity.Moviento;
 import com.pe.nttdata.model.entity.Personal;
-import com.pe.nttdata.dao.VipPymeService;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

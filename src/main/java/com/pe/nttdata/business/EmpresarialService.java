@@ -1,14 +1,12 @@
-package com.pe.nttdata.dao;
+package com.pe.nttdata.business;
 
 import com.pe.nttdata.model.entity.Empresarial;
-import com.pe.nttdata.model.entity.Moviento;
-import com.pe.nttdata.model.entity.Personal;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- *Interface VipPymeService. <br/>
- *<b>Class</b>: {@link VipPymeService}<br/>
+ *Interface EmpresarialService. <br/>
+ *<b>Class</b>: {@link EmpresarialService}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -23,12 +21,14 @@ import reactor.core.publisher.Mono;
  *</ul>
  *@version 1.0
  */
-public interface VipPymeService {
+public interface EmpresarialService {
 
-  public Mono<Personal> saveVipVerify(Personal personal);
+  public Flux<Empresarial> findAll();
 
-  public Mono<Empresarial> savePymeVerify(Empresarial empresarial);
+  public Mono<Empresarial> findById(String id);
 
-  public Flux<Moviento> getAllMovientoBank();
+  public Mono<Empresarial> save(Empresarial empresa);
+
+  public Mono<Void> deleteById(String id);
 
 }

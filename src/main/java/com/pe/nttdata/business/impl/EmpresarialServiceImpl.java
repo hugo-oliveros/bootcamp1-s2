@@ -1,8 +1,8 @@
-package com.pe.nttdata.dao.impl;
+package com.pe.nttdata.business.impl;
 
+import com.pe.nttdata.business.EmpresarialService;
+import com.pe.nttdata.dao.EmpresarialDao;
 import com.pe.nttdata.model.entity.Empresarial;
-import com.pe.nttdata.dao.repository.EmpresarialRepository;
-import com.pe.nttdata.dao.EmpresarialService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,26 +32,26 @@ import reactor.core.publisher.Mono;
 public class EmpresarialServiceImpl implements EmpresarialService {
 
   @Autowired
-  private EmpresarialRepository empresaRepository;
+  private EmpresarialDao empresarialDao;
 
   @Override
   public Flux<Empresarial> findAll() {
-    return empresaRepository.findAll();
+    return empresarialDao.findAll();
   }
 
   @Override
   public Mono<Empresarial> findById(String id) {
-    return empresaRepository.findById(id);
+    return empresarialDao.findById(id);
   }
 
   @Override
   public Mono<Empresarial> save(Empresarial empresa) {
-    return empresaRepository.save(empresa);
+    return empresarialDao.save(empresa);
   }
 
   @Override
   public Mono<Void> deleteById(String id) {
-    return empresaRepository.deleteById(id);
+    return empresarialDao.deleteById(id);
   }
 
 }

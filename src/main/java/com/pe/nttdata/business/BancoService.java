@@ -1,4 +1,4 @@
-package com.pe.nttdata.dao;
+package com.pe.nttdata.business;
 
 import com.pe.nttdata.model.entity.Activo;
 import com.pe.nttdata.model.entity.Moviento;

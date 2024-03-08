@@ -1,12 +1,12 @@
 package com.pe.nttdata.dao;
 
-import com.pe.nttdata.model.entity.Personal;
+import com.pe.nttdata.model.entity.Empresarial;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- *Interface PersonalService. <br/>
- *<b>Class</b>: {@link PersonalService}<br/>
+ *Interface EmpresarialDao. <br/>
+ *<b>Class</b>: {@link EmpresarialDao}<br/>
  *<b>Copyright</b>: &Copy; 2024 NTTDATA Per&uacute;. <br/>
  *<b>Company</b>: NTTDATA del Per&uacute;. <br/>
  *
@@ -21,16 +21,14 @@ import reactor.core.publisher.Mono;
  *</ul>
  *@version 1.0
  */
-public interface PersonalService {
+public interface EmpresarialDao {
 
-  public Flux<Personal> findAll();
+  public Flux<Empresarial>  findAll();
 
-  public Mono<Personal> findById(String id);
+  public Mono<Empresarial> findById(String id);
 
-  public Mono<Personal> save(Personal persona);
+  public Mono<Empresarial> save(Empresarial empresa);
 
-  public  Mono<Personal> update(final String id, final Personal persona);
-
-  Mono<Void> deleteById(String id);
+  public Mono<Void> deleteById(String id);
 
 }

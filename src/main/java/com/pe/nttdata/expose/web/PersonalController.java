@@ -1,8 +1,8 @@
 package com.pe.nttdata.expose.web;
 
+import com.pe.nttdata.dao.PersonalDao;
 import com.pe.nttdata.model.entity.Empresarial;
 import com.pe.nttdata.model.entity.Personal;
-import com.pe.nttdata.dao.PersonalService;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class PersonalController {
    * PersonalService personalService
    **/
   @Autowired
-  private PersonalService personalService;
+  private PersonalDao personalDao;
 
   /**
    * </p>
@@ -61,7 +61,7 @@ public class PersonalController {
   @GetMapping(value = "/all")
   @ResponseStatus(HttpStatus.OK)
   public Flux<Personal> getAll() {
-    return personalService.findAll();
+    return personalDao.findAll();
   }
 
   /**
@@ -77,7 +77,7 @@ public class PersonalController {
   @GetMapping(value = "/find/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Mono<Personal> find(final @PathVariable("id") @NotNull String id) {
-    return personalService.findById(id);
+    return personalDao.findById(id);
   }
 
   /**
@@ -95,7 +95,7 @@ public class PersonalController {
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Personal> save(final @RequestBody @NotNull Personal personal) {
-    return personalService.save(personal);
+    return personalDao.save(personal);
   }
 
   /**
@@ -112,7 +112,7 @@ public class PersonalController {
   @DeleteMapping(value = "/delete/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public Mono<Void> delete(final @PathVariable("id") @NotNull String id) {
-    return personalService.deleteById(id);
+    return personalDao.deleteById(id);
   }
 
 }
