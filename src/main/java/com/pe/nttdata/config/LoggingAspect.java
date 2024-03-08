@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pe.nttdata.commons.AspectEnum;
 import com.pe.nttdata.dto.AppProcesoLogDto;
-import com.pe.nttdata.util.DateUtils;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -50,8 +50,7 @@ public class LoggingAspect {
   private String aplicatiobName;
 
   private final int maxCharOutput = 3950;
-  private List<Object> listaParametrosTmp = null;
-  private List<Object> listaParametros = new ArrayList<>();
+  private final List<Object> listaParametros = new ArrayList<>();
   private String parametros;
 
   private AppProcesoLogDto logSystem = AppProcesoLogDto.builder().build();
@@ -66,8 +65,8 @@ public class LoggingAspect {
   @Around(value = "execution(* com.pe.nttdata.controller..*(..))")
   public Object aroundAdvice(ProceedingJoinPoint joinPoint) {
 
-    logSystem = AppProcesoLogDto.builder().build();
     listaParametros.clear();
+    logSystem = AppProcesoLogDto.builder().build();
 
     try {
       Arrays.asList(joinPoint.getArgs()).forEach(req -> {
@@ -77,7 +76,6 @@ public class LoggingAspect {
           listaParametros.add(req);
         }
       });
-
 
       if (listaParametros != null && !listaParametros.isEmpty()) {
         ObjectMapper mapperEntrada = new ObjectMapper();
@@ -98,7 +96,7 @@ public class LoggingAspect {
       logSystem.setParametroEntrada(null);
     }
 
-    final long start = System.currentTimeMillis();
+
     logSystem.setFechaInicioEjecucion(new java.util.Date());
     logSystem.setModulo(aplicatiobName);
 
@@ -106,43 +104,13 @@ public class LoggingAspect {
     try {
 
       if (joinPoint.proceed() instanceof Mono) { //if Mono
-
         return Mono.from(((Mono<?>) joinPoint.proceed()).doOnNext(response -> {
-          final long executionTime = System.currentTimeMillis() - start;
-          logSystem.setDescripcionEstadoEjecucion(AspectEnum.MENSAJEOK.value());
-          logSystem.setEstadoEjecucion(AspectEnum.EXITO.getValue());
-          final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-          final Method method = signature.getMethod();
-          logSystem.setClaseProgramacion(signature.getDeclaringType().getSimpleName());
-          logSystem.setClaseProgramacion(signature.getDeclaringType().getSimpleName());
-          String claseHija = joinPoint.getTarget().getClass().getSimpleName();
-          if (Optional.ofNullable(claseHija).isPresent()) {
-            logSystem.setClaseProgramacion(claseHija);
-          }
-          logSystem.setFechaFinEjecucion(new java.util.Date());
-          logSystem.setDuracionMs((int) executionTime);
-          logSystem.setResultadoSalida(response.toString());
-          log.info("\u001B[33mLog logExecutionTime - ** {} ** \u001B[0m", logSystem.toString());
+          getProcees(joinPoint, response);
         }));
 
       } else { //if Flux
-
         return Flux.from(((Flux<?>) joinPoint.proceed()).doOnNext(response -> {
-          final long executionTime = System.currentTimeMillis() - start;
-          logSystem.setDescripcionEstadoEjecucion(AspectEnum.MENSAJEOK.value());
-          logSystem.setEstadoEjecucion(AspectEnum.EXITO.getValue());
-          final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-          final Method method = signature.getMethod();
-          logSystem.setClaseProgramacion(signature.getDeclaringType().getSimpleName());
-          logSystem.setMetodoProgramacion(method.getName());
-          String claseHija = joinPoint.getTarget().getClass().getSimpleName();
-          if (Optional.ofNullable(claseHija).isPresent()) {
-            logSystem.setClaseProgramacion(claseHija);
-          }
-          logSystem.setFechaFinEjecucion(DateUtils.obtenerFechaHoraActual());
-          logSystem.setDuracionMs((int) executionTime);
-          logSystem.setResultadoSalida(response.toString());
-          log.info("\u001B[33mLog logExecutionTime - ** {} ** \u001B[0m", logSystem.toString());
+          getProcees(joinPoint, response);
         }));
 
       }
@@ -159,5 +127,26 @@ public class LoggingAspect {
   }
 
 
+  private void getProcees(ProceedingJoinPoint joinPoint, Object response) {
+    final long start = System.currentTimeMillis();
+
+    final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+    final Method method = signature.getMethod();
+    logSystem.setClaseProgramacion(signature.getDeclaringType().getSimpleName());
+    logSystem.setMetodoProgramacion(method.getName());
+    String claseHija = joinPoint.getTarget().getClass().getSimpleName();
+    if (Optional.ofNullable(claseHija).isPresent()) {
+      logSystem.setClaseProgramacion(claseHija);
+    }
+    logSystem.setDescripcionEstadoEjecucion(AspectEnum.MENSAJEOK.value());
+    logSystem.setEstadoEjecucion(AspectEnum.EXITO.getValue());
+    logSystem.setFechaFinEjecucion(new java.util.Date());
+
+    final long executionTime = System.currentTimeMillis() - start;
+    logSystem.setDuracionMs((int) executionTime);
+    logSystem.setResultadoSalida(response.toString());
+    log.info("\u001B[33mLog logExecutionTime - ** {} ** \u001B[0m", logSystem.toString());
+
+  }
 
 }

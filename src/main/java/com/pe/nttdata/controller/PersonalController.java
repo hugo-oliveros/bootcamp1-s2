@@ -2,7 +2,7 @@ package com.pe.nttdata.controller;
 
 import com.pe.nttdata.entity.Empresarial;
 import com.pe.nttdata.entity.Personal;
-import com.pe.nttdata.services.PersonalService;
+import com.pe.nttdata.services.impl.PersonalServiceImpl;
 import javax.validation.constraints.NotNull;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class PersonalController {
    * PersonalService personalService
    **/
   @Autowired
-  private PersonalService personalService;
+  private PersonalServiceImpl personalServiceImpl;
 
   /**
    * </p>
@@ -62,7 +62,7 @@ public class PersonalController {
   @GetMapping(value = "/all")
   @ResponseStatus(HttpStatus.OK)
   public Flux<Personal> getAll() {
-    return personalService.findAll();
+    return personalServiceImpl.findAll();
   }
 
   /**
@@ -78,7 +78,7 @@ public class PersonalController {
   @GetMapping(value = "/find/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Mono<Personal> find(final @PathVariable("id") @NotNull String id) {
-    return personalService.findById(id);
+    return personalServiceImpl.findById(id);
   }
 
   /**
@@ -96,7 +96,7 @@ public class PersonalController {
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Personal> save(final @RequestBody @NotNull Personal personal) {
-    return personalService.save(personal);
+    return personalServiceImpl.save(personal);
   }
 
   /**
@@ -113,7 +113,7 @@ public class PersonalController {
   @DeleteMapping(value = "/delete/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public Mono<Void> delete(final @PathVariable("id") @NotNull String id) {
-    return personalService.deleteById(id);
+    return personalServiceImpl.deleteById(id);
   }
 
 }

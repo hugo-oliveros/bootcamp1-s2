@@ -3,7 +3,7 @@ package com.pe.nttdata.controller;
 import com.pe.nttdata.entity.Empresarial;
 import com.pe.nttdata.entity.Moviento;
 import com.pe.nttdata.entity.Personal;
-import com.pe.nttdata.services.VipPymeService;
+import com.pe.nttdata.services.impl.VipPymeServiceImpl;
 import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class VipPymeController {
    * VipPymeService vipPymeService
    **/
   @Autowired
-  private VipPymeService vipPymeService;
+  private VipPymeServiceImpl vipPymeServiceImpl;
 
   /**
    * <p/>
@@ -59,7 +59,7 @@ public class VipPymeController {
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Personal> save(@RequestBody @NotNull final Personal personal) {
-    return vipPymeService.saveVipVerify(personal);
+    return vipPymeServiceImpl.saveVipVerify(personal);
   }
 
   /**
@@ -77,7 +77,7 @@ public class VipPymeController {
           produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Empresarial> save(@RequestBody @NotNull final Empresarial empresarial) {
-    return vipPymeService.savePymeVerify(empresarial);
+    return vipPymeServiceImpl.savePymeVerify(empresarial);
   }
 
 
@@ -93,7 +93,7 @@ public class VipPymeController {
   @GetMapping(value = "/allMovBank")
   @ResponseStatus(HttpStatus.OK)
   public Flux<Moviento> getAllMovBack() {
-    return vipPymeService.getAllMovientoBank();
+    return vipPymeServiceImpl.getAllMovientoBank();
   }
 
 
@@ -109,7 +109,7 @@ public class VipPymeController {
   @GetMapping(value = "/totalMovBank")
   @ResponseStatus(HttpStatus.OK)
   public Flux<Moviento> totalMovBank() {
-    return vipPymeService.getAllMovientoBank()
+    return vipPymeServiceImpl.getAllMovientoBank()
             .groupBy(Moviento::getNumberAccount)
             .flatMap(f -> {
               return f;
